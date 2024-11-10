@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 002</title>
+</head>
+<body>
+    <h1>Test 002</h1>
+    hello
+    <button onclick="hide(this, true); debug('hide button 1');">Hide 1</button>
+    <button onclick="hide(this); debug('hide button 2');">Hide 2</button>
+    world
+    <br><br>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_175XGASUils7OWbD_r4-eSR9hKuX_KSRfSgedsnFeh7XX7ogkMDMhW9ngfc59gi6mE0&usqp=CAU"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTikEzdlikGUIgWyMmcYnTMbzXFoti2lF6DKaD2O4YRbUF8uWRHAjjzKO2fypusZujPTXM&usqp=CAU">
+    <img src="https://avatars.mds.yandex.net/get-vertis-journal/4080458/1efcc89a9f57d4cfa8dd0e7ee0f009cfa.jpg_1654847811483/orig"> <img src="https://www.m24.ru/b/d/nBkSUhL2hFEnmsqyIr6BrNOp2Z398Jii1ifFh_fH_nKUPXuaDyXTjHou4MVO6BCVoZKf9GqVe5Q_CPawk214LyWK9G1N5ho=Ez3N5ql-jr6XrfoqmaH44w.jpg">
+    <script>
+        // Exibe uma mensagem em uma secao de saida de depuracao especial do documento
+        // Se o documento nao possui uma, cria uma
+        function debug(msg)
+        {
+            // localiza a secao de depuracao do documento
+            var log = document.getElementById("debuglog");
+
+            // Caso nao exista nenhum elemento com a identificacao debuglog, cria um
+            
+            if (!log)
+            {
+                // Cria um novo elemento <div>
+                log = document.createElement("div");
+                
+                // Define um id nele
+                log.id = "debuglog";
+
+                // Define o conteudo inicial dele
+                log.innerHTML = "<h1>Debug Log</h1>";
+
+                // Adiciona ele ao corpo do documento
+                document.body.appendChild(log);
+            }
+
+            // Adiciona a mensagem em seu propio <pre>
+            var pre = document.createElement("pre");
+            
+            // Cria um text node com a mensagem
+            var text = document.createTextNode(msg);
+
+            // Adiciona o text node no <pre>
+            pre.appendChild(text);
+
+            // Adiciona o <pre> no <div>
+            log.appendChild(pre);
+        }
+
+        // Oculta o elemento e faz script do seu estilo
+        function hide(e, reflow)
+        {
+            console.log(e);
+
+            // Se o segundo argumento e verdadeiro
+            if (reflow)
+            {
+                // Oculta o elemento e utiliza seu espaco
+                if (e.target)
+                {
+                    e.target.style.display = "none";
+                }
+                else
+                {
+                    e.style.display = "none";
+                }
+            }
+            // Caso contrario
+            else
+            {
+                // Oculta o elemento, mas nao utiliza seu espaco
+                if (e.target)
+                {
+                    e.target.style.visibility = "hidden";
+                }
+                else
+                {
+                    e.style.visibility = "hidden";
+                }
+            }
+        }
+
+        // Quando o documento for carregado
+        window.onload = function ()
+        {
+            // Localiza todas as tags <img> no documento
+            var images = document.getElementsByTagName("img");
+
+            // Faz um laco por elas, adicionando uma rotina de tratamento para eventos "click" em cada imagem para oculta-la quando clicada
+            for (var i = 0; i < images.length; i++)
+            {
+                // Localizar a imagem atual
+                var image = images[i];
+
+                // Adicionar rotina de tratamento "click"
+                image.addEventListener("click", hide, false);
+
+                // Adicionar tamanhos padronizados a imagem
+                image.style.width = "250px";
+                image.style.height = "250px";
+            }
+        }
+    </script>
+</body>
+</html>

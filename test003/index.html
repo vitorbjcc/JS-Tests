@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Import jQuery-->
+    <script type="module" src="./jquery-3.7.1.min.js"></script>
+    <title>Test 003</title>
+</head>
+<body>
+    <h1>Test 003</h1>
+    <p>Write your debug message: <input type="text" id="debugmsg" placeholder="Your Debug Message"></p>
+    <button id="btn_add">Add</button>
+    <script>
+        // Adiciona mensagem a secao de depuracao especial no documento, caso nao exista, cria uma
+        function debug(msg)
+        {
+            // Localiza o elemento <div> para exibir a mensagem
+            var log = $("#debuglog");
+            console.log(msg);
+
+            // Se ele ainda nao existe, cria um
+            if (log.length === 0)
+            {
+                log = $("<div id='debuglog'><h1>Debug Log</h1></div>");
+
+                // Adiciona ao corpo do documento
+                log.appendTo(document.body);
+            }
+
+            // Coloca a mensagem na tag <pre> e anexa no log
+            log.append($("<pre/>").text(msg));
+        }
+
+        // Quando o documento carregar
+        window.onload = function ()
+        {
+            // Localizar caixa de texto e botao
+            var debug_msg = document.getElementById("debugmsg");
+            var btn = document.getElementById("btn_add");
+
+            // Adiciona uma rotina de tratamento "click" ao botao, e com o parametro da funcao debug o valor da caixa de texto
+            btn.addEventListener("click", function () { debug(debug_msg.value) });
+        }
+    </script>
+</body>
+</html>

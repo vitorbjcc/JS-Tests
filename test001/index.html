@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 001</title>
+</head>
+<body>
+    <h1>Test 001</h1>
+    <script>
+        function moveon()
+        {
+            // Exibe uma mensagem com opcoes ao usuario
+            var answer = window.confirm("Ready to move on?");
+
+            // Caso o usuario diga sim, mudar o site
+            if (answer)
+            {
+                window.location = "https://youtube.com";
+            }
+        }
+
+        // Executar funcao uma vez depois de 5 segundos
+        setTimeout(moveon, 5000);
+    </script>
+</body>
+</html>
