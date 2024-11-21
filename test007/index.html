@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 007</title>
+</head>
+<body>
+    <h1>Word Counter</h1>
+    <p>Type a phrase: <input type="text" id="text" placeholder="Your phrase"></p>
+    <button onclick="getClick();">Send</button>
+    <script>
+        function getClick()
+        {
+            // Localizar input
+            var text = document.getElementById("text");
+
+            // Caso o texto esteja vazio, retornar
+            if (!text.value) return;
+
+            // Cria dado do tamanho do texto
+            var textLength = (text.value).length;
+            
+            // Cria dado de quantas palavras tem na frase
+            // Cria expressao regular
+            var pattern = / /g;
+            
+            // Salva array de dados em variavel
+            var textWords = text.value.split(pattern);
+
+            // Cria dado de quantas frases tem no texto
+            // Reatribui um valor a variavel pattern com outra expressao regular
+            pattern = /[.!?]/g;
+
+            // Salva array de dados em variavel
+            var textPhrases = text.value.split(pattern);
+
+            // Funcao que percorre por todos os indices do array e elimina indices vazios
+            function clearSpace(array)
+            {
+                // Filtra e retorna elementos que nao sao strings vazias
+                return array.filter(item => item.trim() !== "");
+            }
+            console.log(textPhrases);
+            // Limpa espacos em branco dos arrays
+            textWords = clearSpace(textWords);
+            textPhrases = clearSpace(textPhrases);
+            console.log(textPhrases);
+
+            // Localiza elementos HTML onde vai ser exibido os resultados
+            var pTextLength = document.getElementById("textlength");
+            var pTextWords = document.getElementById("textwords");
+            var pTextPhrases = document.getElementById("textphrases");
+
+            // Caso algum desses elementos nao exista, cria todos
+            if (!pTextLength || !pTextWords || !pTextPhrases)
+            {
+                // Cria tag <p>
+                pTextLength = document.createElement("p");
+
+                // Atribui um id de identificacao
+                pTextLength.id = "textlength";
+
+                // Anexa conteudo
+                pTextLength.innerHTML = `Your text has <strong>${textLength}</strong> characters.`;
+
+                // Cria tag <p>
+                pTextWords = document.createElement("p");
+
+                // Atribui um id de identificacao
+                pTextWords.id = "textwords";
+
+                // Anexa conteudo
+                pTextWords.innerHTML = `Your text has <strong>${textWords.length}</strong> words.`;
+
+                // Cria tag <p>
+                pTextPhrases = document.createElement("p");
+
+                // Atribui um id de identificao
+                pTextPhrases.id = "textphrases";
+
+                // Anexa conteudo
+                pTextPhrases.innerHTML = `Your text has <strong>${textPhrases.length}</strong> phrases.`;
+
+                // Anexa todos os elementos ao corpo do documento
+                document.body.appendChild(pTextLength);
+                document.body.appendChild(pTextWords);
+                document.body.appendChild(pTextPhrases);
+            }
+            else
+            {
+                // Muda conteudo dos elementos
+                pTextLength.innerHTML = `Your text has <strong>${textLength}</strong> characters.`;
+                pTextWords.innerHTML = `Your text has <strong>${textWords.length}</strong> words.`;
+                pTextPhrases.innerHTML = `Your text has <strong>${textPhrases.length}</strong> phrases.`;
+            }
+        }
+    </script>
+</body>
+</html>
