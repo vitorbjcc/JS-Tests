@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 009 - Word Finder</title>
+</head>
+<body>
+    <h1>Word Finder</h1>
+    <p>It seems a very simple website, but I'm testing searchs using binary search.</p>
+    <p>Type a phrase: <input type="text" id="phrase" placeholder="Phrase"></p>
+    <p>Type a word: <input type="text" id="word" placeholder="Word"></p>
+    <button onclick="analise();">Analise</button>
+    <p id="result"></p>
+    <script>
+        // Usa modo restrito do ECMAScript
+        "use strict";
+
+        function analise()
+        {
+            // Localiza a frase formatada sem espacos desnecessarios e com caracteres em minusculo
+            var phrase = document.getElementById("phrase").value.trim().toLowerCase();
+
+            // Localiza palavrasa desejada formatada
+            var word = document.getElementById("word").value.trim().toLowerCase();
+
+            // Caso a frase ou a palavra seja uma string vazia, retornar
+            if (!phrase || !word) return;
+
+            // Cria lista de palavras usando expressao regular e tambem elimina pontuacoes como !, ., ?, etc
+
+            var phraseWords = phrase.replace(/[.!?,:]/g, "").split(/ /g);
+
+            // Caso a pesquisa binaria nao encontre o valor pesquisado
+            if (!binarySearch(phraseWords, word))
+            {
+                // Localiza <p> onde vamos informar o usuario
+                var p = document.getElementById("result");
+
+                // Muda texto do <p>
+                return p.innerText = `I didn\'t find the word \"${word.replace(/[a-z]/, function (lowerCaseChar) { return lowerCaseChar.toUpperCase() })}\" in your list.`;
+            }
+            // Caso a pesquisa binaria tenha achado o valor
+            else
+            {
+                // Localiza <p> onde vamos informar o usuario
+                var p = document.getElementById("result");
+
+                // Muda texto do <p>
+                return p.innerText = `I did find the word \"${word.replace(/[a-z]/, function (lowerCaseChar) { return lowerCaseChar.toUpperCase() })}\" in your text.`;
+            }
+        }
+
+        // Funcao de pesquisa binaria
+        function binarySearch(array, searchValue)
+        {
+            var lowestValue = 0;
+            var highestValue = array.length-1;
+
+            // Enquanto a menor possibilidade for menor ou igual a maior possibilidade
+            while (lowestValue <= highestValue)
+            {
+                // Cria valor central (mediana entre os dois valores)
+                var mid = Math.floor((lowestValue + highestValue) / 2);
+
+                // Cria chute
+                var guess = array[mid];
+
+                // Caso o chute esteja certo
+                if (guess === searchValue)
+                {
+                    // Retorna o valor de pesquisa
+                    return searchValue;
+                }
+                // Caso o chute seja maior que o valor de pesquisa
+                else if (guess > searchValue)
+                {
+                    // Ajusta maior possibilidade
+                    highestValue = mid - 1;
+                }
+                // Caso o chute seja menor que o valor de pesquisa
+                else
+                {
+                    // Ajusta menor possibilidade
+                    lowestValue = mid + 1;
+                }
+            }
+
+            // Se chegamos ate aqui, o valor nao foi encontrado no array, entao retorna null
+            return null;
+        }
+    </script>
+</body>
+</html>
